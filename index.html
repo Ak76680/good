@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Manas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; background: #f0f9ff; color: #075985; overflow-x: hidden; }
+        .page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; position: relative; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(186, 230, 253, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+        .candle-container { cursor: pointer; transition: transform 0.3s; }
+        .flame { width: 15px; height: 35px; background: #ff9d00; border-radius: 50% 50% 20% 20%; position: absolute; top: -35px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 20px #ff9d00; animation: flicker 0.1s infinite alternate; }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-52%) scale(1.1); } }
+        #blossom-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .photo-wall img { transition: transform 0.3s; border: 6px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .photo-wall img:hover { transform: scale(1.05) rotate(0deg); z-index: 10; border-color: #bae6fd; }
+        .music-control { position: fixed; top: 20px; right: 20px; z-index: 100; background: white; padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" onclick="toggleMusic()" id="musicBtn">🎵</div>
+
+    <section id="page1" class="page bg-gradient-to-br from-sky-400 via-sky-300 to-white">
+        <div class="text-center">
+            <h1 class="text-7xl font-bold mb-4 text-sky-900" style="font-family: 'Dancing Script';">Happy Birthday Manas</h1>
+            <p class="text-xl mb-8 text-sky-800 font-light tracking-wide">Today is all about you. Ready for a small journey?</p>
+            <button onclick="startJourney()" class="bg-sky-600 text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-sky-700 transition transform hover:scale-105">Open Your Heart ♡</button>
+        </div>
+    </section>
+
+    <section id="page2" class="page bg-sky-50">
+        <div class="max-w-2xl glass p-10 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-sky-600">To My Favorite Human</h2>
+            <p class="text-lg leading-relaxed text-sky-900">
+                <b class="text-2xl block mb-4">In the world of billions, somehow I found my favorite human.</b> 
+                You have this incredible way of making everything brighter just by being in the room. 
+                <br><br>
+                Today, I wanted to create a digital space just for you. I don't have an idea if it's good or not, so forget my silly mistakes ☺ — a small reminder of how much you mean to me and how incredible you are. 
+                <br><br>
+                May your 2026 be filled with as much joy and happiness as you give to others.
+            </p>
+            <div class="mt-10 animate-bounce text-sky-500">↓ Scroll for Magic</div>
+        </div>
+    </section>
+
+    <section id="page3" class="page">
+        <div id="blossom-container"></div>
+        <div class="glass p-8 max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-4 text-sky-700" style="font-family: 'Dancing Script';">Favorite Moments</h2>
+                <p class="italic text-sky-900 border-l-4 border-sky-400 pl-4">"Today the world feels gentler because you arrived in it. May this new year hold you softly..."</p>
+            </div>
+            <div class="rounded-xl overflow-hidden shadow-2xl border-4 border-white">
+                <img src="images/IMG_20260105_075915.jpg" alt="Manas Go Karting" class="w-full">
+            </div>
+        </div>
+    </section>
+
+    <section id="page4" class="page bg-sky-900 text-white">
+        <h2 class="text-6xl font-black mb-4 uppercase tracking-tighter text-sky-100">Make a Wish</h2>
+        <p class="mb-12 text-sky-300">Click the candle to blow it out!</p>
+        
+        <div class="relative candle-container" onclick="blowCandle()">
+            <div class="w-48 h-28 bg-sky-100 rounded-t-lg relative shadow-2xl">
+                <div class="absolute -top-3 left-0 w-full h-6 bg-sky-200 rounded-full"></div>
+                <div class="absolute -top-14 left-1/2 -translate-x-1/2 w-5 h-14 bg-sky-400 border-b-4 border-sky-600">
+                    <div id="candleFlame" class="flame"></div>
+                </div>
+            </div>
+        </div>
+        <div id="wishMessage" class="mt-12 text-3xl font-bold text-sky-200 hidden animate-pulse">Your wish is being sent to the stars! ✨</div>
+    </section>
+
+    <section id="page5" class="page bg-sky-50">
+        <h2 class="text-5xl font-bold mb-12 text-sky-800" style="font-family: 'Dancing Script';">Memory Wall</h2>
+        <div class="photo-wall grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl px-4">
+            <img src="images/IMG-20260105-WA0065.jpg" class="h-64 w-full object-cover transform -rotate-3">
+<img src="images/IMG-20260105-WA0077.jpg" class="h-64 w-full object-cover transform rotate-2">
+<img src="images/IMG_20260104_201202.jpg" class="h-64 w-full object-cover transform -rotate-1">
+
+<div class="bg-white p-6 flex items-center justify-center text-center italic border-2 border-sky-200 text-sky-700 shadow-inner">
+    "Your existence is a gift time itself celebrates."
+</div>
+
+<img src="images/IMG_20260103_210642.jpg" class="h-64 w-full object-cover transform rotate-3">
+<img src="images/IMG_20260104_222503.jpg" class="h-64 w-full object-cover transform -rotate-2">
+
+        </div>
+        <footer class="mt-20 text-sky-400 font-medium pb-10 italic">Happy Birthday Manas • Your journey begins here</footer>
+    </section>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('musicBtn').innerText = '⏸';
+            } else {
+                audio.pause();
+                document.getElementById('musicBtn').innerText = '🎵';
+            }
+        }
+
+        function startJourney() {
+            audio.play();
+            document.getElementById('musicBtn').innerText = '⏸';
+            window.location.hash = "page2";
+        }
+
+        // THREE.JS BLOSSOM ANIMATION (Sky Blue Theme)
+        const container = document.getElementById('blossom-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.set(0, 5, 10);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        const petals = [];
+        const petalGeo = new THREE.CircleGeometry(0.12, 5);
+        // Changed petals to a mix of white and sky blue for a fresh look
+        const petalMat = new THREE.MeshBasicMaterial({ color: 0xbae6fd, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+
+        for(let i=0; i<150; i++) {
+            const petal = new THREE.Mesh(petalGeo, petalMat);
+            petal.position.set(Math.random()*20-10, Math.random()*20, Math.random()*20-10);
+            petal.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+            scene.add(petal);
+            petals.push(petal);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            petals.forEach(p => {
+                p.position.y -= 0.015;
+                p.rotation.x += 0.01;
+                p.rotation.z += 0.005;
+                if(p.position.y < -5) p.position.y = 15;
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        function blowCandle() {
+            document.getElementById('candleFlame').style.display = 'none';
+            document.getElementById('wishMessage').classList.remove('hidden');
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>
